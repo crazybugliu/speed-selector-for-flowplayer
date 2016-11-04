@@ -1,0 +1,98 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+  <!--flowplayer-->
+  <link rel="stylesheet" href="flowplayer/skin/functional.css">
+  <link rel="stylesheet" href="flowplayer/skin/flowplayer.quality-selector.css">
+  <link rel="stylesheet" href="flowplayer/skin/flowplayer.speed-selector.css">
+  
+  
+</head>
+<body>
+
+<div id="playerCon" style="max-width: 800px;">
+	<div id="vodsPlayer"  class="flowplayer" style="margin-bottom: 3px;">
+            <div class="" style="padding-top: 56.25%;"></div>
+	</div>
+</div>
+
+
+
+<!--flowplayer-->
+<script src="flowplayer/flowplayer.js"></script>
+<script src="flowplayer/flowplayer.quality-selector.js"></script>
+<script src="flowplayer/flowplayer.speed.js"></script>
+
+<script type="text/javascript">	
+
+    _flowPlayer = flowplayer('#vodsPlayer', {
+        clip: {
+            sources: [{
+                type: "video/mp4",
+                src: "http://path/to/video.mp4"
+            }],
+            speedEnable: true,
+            speeds:['1', '2', '4'],
+            qualities: ["流畅", "高清", "超清", "蓝光"],
+            defaultQuality: "流畅",
+        }
+    });
+
+    onQualityChange(_flowPlayer);
+
+    function onQualityChange(flowPlayerApi) {
+        flowPlayerApi.on('quality-change', function (ev, api, quality) {
+            var currentTime = api.finished ? 0 : api.video.time;
+            var ft = 1;
+            switch (quality) {
+                case '流畅':
+                    ft = 0;
+                    break;
+                case '高清':
+                    ft = 1;
+                    break;
+                case '超清':
+                    ft = 2;
+                    break;
+                case '蓝光':
+                    ft = 3;
+                    break;
+            }
+            alert('切换到' + quality);
+            // $.getJSON('path/to/get/new/url?ft='+ft, function (urlResult) {
+            //     if(urlResult.err != 0){
+            //         if(urlResult.err == 404)
+            //             $.smkAlert({text: '该视频无此码率'});
+            //         else
+            //             $.smkAlert({text: '未获取到播放地址'});
+            //         return;
+            //     }
+            //     _scope.videoUrl = urlResult.data;
+
+            //     api.load({
+            //             autoplay: true,
+            //             speeds:['1', '2', '4'],
+            //             defaultQuality: defaultQuality,
+            //             qualities: qualities,
+            //             sources: [
+            //                 {
+            //                     type: "video/mp4", src: _scope.videoUrl
+            //                 }]
+            //         }, function () {
+            //             api.finished = false;
+            //             if (currentTime && !api.live) {
+            //                 api.seek(currentTime, function () {
+            //                     api.resume();
+            //                 });
+            //             }
+            //         }
+            //     );
+            // });
+
+        })
+    }
+</script>
+</body>
+</html>
