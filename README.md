@@ -27,7 +27,8 @@
 
 
 
-效果：![show](show.png)
+效果： 
+![show](show.png)
 
 
 
